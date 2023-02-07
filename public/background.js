@@ -1,7 +1,7 @@
 // 默认配置
 const DEFAULT_CONFIG = {
   enableAutoGroup: false, // 是否启动自动分组
-  enableMerge: true, // 是否自动合并相同tab
+  enableMerge: false, // 是否自动合并相同tab
   enableShowGroupTitle: true, // 是否显示分组名称
   groupTabNum: 2, // 满足多少个tab时才进行分组
   groupStrategy: 4, // 分组策略
@@ -282,20 +282,33 @@ function getSecDomain(url) {
 
 // eslint-disable-next-line no-unused-vars
 function getGroupTitleByURL(url) {
-  let isMR = url.match(/.*\/merge_requests\/.*/);
-  if (isMR) {
+  if (
+      url.match(/.*\/tekton.hxingsec.com\/.*/)
+      || url.match(/.*\/cicd.hxingsec.com\/.*/)
+      || url.match(/.*\/argo.hxingsec.com\/.*/)
+      || url.match(/.*\/merge_requests\/.*/)
+  ) {
     return "dev";
   }
 
-  let isArgo = url.match(/.*\/argo.hxingsec.com\/.*/);
-  if (isArgo) {
-      return "dev";
+
+  if (
+      url.match(/.*\/app-test.hxingsec.com\/kibana\/.*/)
+      || url.match(/.*\/kibana.hxingsec.com\/.*/)
+  ) {
+    return "TEST";
   }
 
 
-  let isCICD = url.match(/.*\/cicd.hxingsec.com\/.*/);
-  if (isCICD) {
-    return "dev";
+  if (
+      url.match(/.*\/172.16.33.234:32003\/app\/discover\/.*/) // kibana
+      || url.match(/.*\/172.16.33.234:32001\/app\/discover\/.*/)
+      || url.match(/.*172.16.33.235:32007.*/)
+      || url.match(/.*172.16.33.234:32004.*/)
+      || url.match(/.*\/172.16.33.234:32002\/alytracing\/jaegerquery.*/)
+      || url.match(/.*\/172.16.33.234:32002\/tracing\/jaegerquery.*/)
+  ) {
+    return "PROD";
   }
 
   return getSecDomain(url);
