@@ -25,7 +25,7 @@
   "commands": {
     "group_right_now": {
       "suggested_key": {
-        "default": "Alt+G"
+        "default": "Alt+Z"
       },
       "description": "Group all tabs right now"
     }

@@ -84,10 +84,10 @@ const customStrategy = {
     return changeInfo.url && tab.url.match(/^https?:\/\/[^/]+\/.*/);
   },
   getGroupTitle: (tab) => {
-    return getGroupTitleByURL(tab.url);
+    return getGroupKeyByTab(tab);
   },
   querySameTabs: async (tab) => {
-    const gt = getGroupTitleByURL(tab.url);
+    const gt = getGroupKeyByTab(tab);
     let tabs;
     await chrome.tabs
         .query({
@@ -95,7 +95,7 @@ const customStrategy = {
           pinned: false,
         })
         .then((allTabs) => {
-          tabs = allTabs.filter((t) => t.url && gt === getGroupTitleByURL(t.url));
+          tabs = allTabs.filter((t) => t.url && gt === getGroupKeyByTab(t));
         });
     return tabs;
   },
@@ -284,7 +284,9 @@ function getSecDomain(url) {
 }
 
 // eslint-disable-next-line no-unused-vars
-function getGroupTitleByURL(url) {
+function getGroupKeyByTab(tab ) {
+  const url = tab.url
+  const title = tab.title
   if (
       url.match(/.*\/tekton.hxingsec.com\/.*/)
       || url.match(/.*\/cicd.hxingsec.com\/.*/)
@@ -292,6 +294,16 @@ function getGroupTitleByURL(url) {
       || url.match(/.*\/merge_requests\/.*/)
   ) {
     return "dev";
+  }
+
+  if (
+      title.match(/.*设计文档.*/)
+      || title.match(/.*PRD.*/)
+      || title.match(/.*需求.*/)
+      || title.match(/.*需求.*/)
+      || title.match(/.*迭代排期.*/)
+  ) {
+    return "需求"
   }
 
 
@@ -312,6 +324,16 @@ function getGroupTitleByURL(url) {
       || url.match(/.*\/172.16.33.234:32002\/tracing\/jaegerquery.*/)
   ) {
     return "PROD";
+  }
+
+  if (
+      url.match(/.*\/xiaohongshu\/.*/)
+      || url.match(/.*\/tophub.today\/.*/)
+      || url.match(/.*\/bbs.hupu\/.*/)
+      || url.match(/.*\/zhihu\/.*/)
+      || url.match(/.*\/juejin\/.*/)
+  ) {
+    return "hub";
   }
 
   return getSecDomain(url);
