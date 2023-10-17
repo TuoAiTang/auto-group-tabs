@@ -250,7 +250,10 @@ function newGroup(tabIds, title) {
   chrome.tabs.group({ tabIds }).then((groupId) => {
     GROUP_MAP.set(getGroupKey(title), groupId);
     if (userConfig.enableShowGroupTitle) {
-      chrome.tabGroups.update(groupId, { title });
+      chrome.tabGroups.update(groupId, {
+        title: title,
+        collapsed: true,
+      });
     }
   });
 }
