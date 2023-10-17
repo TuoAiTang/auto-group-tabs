@@ -297,11 +297,22 @@ function getGroupKeyByTab(tab ) {
   }
 
   if (
+      url.match(/.*xiaohongshu.*/)
+      || url.match(/.*tophub.toda.*/)
+      || url.match(/.*bbs.hupu.*/)
+      || url.match(/.*zhihu.*/)
+      || url.match(/.*juejin.*/)
+  ) {
+    return "hub";
+  }
+
+  if (
       title.match(/.*设计文档.*/)
       || title.match(/.*PRD.*/)
       || title.match(/.*需求.*/)
       || title.match(/.*需求.*/)
       || title.match(/.*迭代排期.*/)
+      || url.match(/.*\/drive\/me.*/)
   ) {
     return "需求"
   }
@@ -324,16 +335,6 @@ function getGroupKeyByTab(tab ) {
       || url.match(/.*\/172.16.33.234:32002\/tracing\/jaegerquery.*/)
   ) {
     return "PROD";
-  }
-
-  if (
-      url.match(/.*\/xiaohongshu\/.*/)
-      || url.match(/.*\/tophub.today\/.*/)
-      || url.match(/.*\/bbs.hupu\/.*/)
-      || url.match(/.*\/zhihu\/.*/)
-      || url.match(/.*\/juejin\/.*/)
-  ) {
-    return "hub";
   }
 
   return getSecDomain(url);
