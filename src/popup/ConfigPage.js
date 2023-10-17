@@ -96,9 +96,10 @@ class ConfigPage extends React.Component {
 
   render() {
     const groupStrategyOptions = [
-      { label: this.i18n("domain"), value: 1 },
-      { label: this.i18n("sld"), value: 2 },
-      { label: this.i18n("tab_title"), value: 3 },
+      // { label: this.i18n("domain"), value: 1 },
+      // { label: this.i18n("sld"), value: 2 },
+      // { label: this.i18n("tab_title"), value: 3 },
+      { label: this.i18n("cst"), value: 4},
     ];
 
     return (
@@ -168,6 +169,9 @@ class ConfigPage extends React.Component {
                 onSearch={this.onTabTitlePatternApply}
               />
             </Form.Item>
+          )}
+          {this.state.groupStrategy === 4 && (
+              <Alert message={this.i18n("cst_tip")} type="info" />
           )}
         </Form>
       </div>

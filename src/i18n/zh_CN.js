@@ -8,6 +8,8 @@ export default {
   domain_tip: "从 https://www.google.com/ 中匹配 'www.google.com'",
   sld: "二级域名",
   sld_tip: "从 https://www.google.com/ 中匹配 'google'",
+  cst:"自定义",
+  cst_tip: "自定义分组规则",
   tab_title: "Tab标题",
   tab_title_contains: "Tab标题包含：",
   apply: "应用",
